@@ -1,11 +1,13 @@
 package dev.filinhat.repository;
 
 import dev.filinhat.util.FileUtils;
+import org.springframework.stereotype.Repository;
 
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
+@Repository
 public class MapRepository implements DictionaryRepository {
     private final Path filePath;
     private final Map<String, String> entries;

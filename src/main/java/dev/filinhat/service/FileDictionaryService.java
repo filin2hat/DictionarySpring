@@ -1,29 +1,19 @@
 package dev.filinhat.service;
 
 import dev.filinhat.repository.DictionaryRepository;
-import dev.filinhat.repository.MapRepository;
 import dev.filinhat.validator.DictionaryValidator;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import org.springframework.stereotype.Service;
+
 import java.util.Map;
 
+@Service
 public class FileDictionaryService implements DictionaryService {
     private final DictionaryValidator validator;
     private final DictionaryRepository repository;
 
-    public FileDictionaryService(DictionaryValidator validator, Path filePath) {
+    public FileDictionaryService(DictionaryValidator validator, DictionaryRepository repository) {
         this.validator = validator;
-
-        try {
-            if (!Files.exists(filePath)) {
-                Files.createFile(filePath);
-            }
-        } catch (IOException e) {
-            System.out.println("\nНе удалось создать файл: " + filePath);
-        }
-
-        this.repository = new MapRepository(filePath);
+        this.repository = repository;
     }
 
     @Override

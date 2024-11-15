@@ -2,33 +2,23 @@ package dev.filinhat;
 
 
 import dev.filinhat.command.*;
+import dev.filinhat.configuration.DictionaryConfiguration;
 import dev.filinhat.service.DictionaryService;
-import dev.filinhat.service.FileDictionaryService;
-import dev.filinhat.validator.FiveDigitValidator;
-import dev.filinhat.validator.FourLetterValidator;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+@Component
 public class DictionaryApp {
-    private final Map<Integer, DictionaryService> dictionaryMap = new HashMap<>();
+    private final Map<Integer, DictionaryService> dictionaryMap;
     private final Map<Integer, DictionaryCommand> commandMap = new HashMap<>();
-    private DictionaryService currentDictionary;
 
-    public DictionaryApp() {
-        initializeDictionaries();
-    }
-
-    public static void main(String[] args) {
-        DictionaryApp app = new DictionaryApp();
-        app.start();
-    }
-
-    private void initializeDictionaries() {
-        dictionaryMap.put(1, new FileDictionaryService(new FourLetterValidator(), Path.of("fourLetterDictionary.txt")));
-        dictionaryMap.put(2, new FileDictionaryService(new FiveDigitValidator(), Path.of("fiveDigitDictionary.txt")));
+    public DictionaryApp(Map<Integer, DictionaryService> dictionaryMap) {
+        this.dictionaryMap = dictionaryMap;
     }
 
     private void initializeCommands(DictionaryService dictionary) {
@@ -54,7 +44,7 @@ public class DictionaryApp {
 
             if (choice == 0) break;
 
-            currentDictionary = dictionaryMap.get(choice);
+            DictionaryService currentDictionary = dictionaryMap.get(choice);
             if (currentDictionary == null) {
                 System.out.println("\nНеверный выбор, попробуйте снова.");
             } else {
@@ -88,5 +78,11 @@ public class DictionaryApp {
                 System.out.println("\nНеверный выбор, попробуйте снова.");
             }
         }
+    }
+
+    public static void main(String[] args) {
+        ApplicationContext context = new AnnotationConfigApplicationContext(DictionaryConfiguration.class);
+        DictionaryApp app = context.getBean(DictionaryApp.class);
+        app.start();
     }
 }

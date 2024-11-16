@@ -6,15 +6,15 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class DisplayEntriesCommand implements DictionaryCommand {
-    private final DictionaryService dictionary;
+    private final DictionaryService service;
 
-    public DisplayEntriesCommand(DictionaryService dictionary) {
-        this.dictionary = dictionary;
+    public DisplayEntriesCommand(DictionaryService service) {
+        this.service = service;
     }
 
     @Override
     public void execute(Scanner scanner) {
-        Map<String, String> entries = dictionary.readEntries();
+        Map<String, String> entries = service.readEntries();
         if (entries.isEmpty()) {
             System.out.println("\nСловарь пуст.");
         } else {

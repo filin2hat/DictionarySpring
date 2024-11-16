@@ -4,13 +4,11 @@ import dev.filinhat.DictionaryApp;
 import dev.filinhat.repository.MapRepository;
 import dev.filinhat.service.DictionaryService;
 import dev.filinhat.service.FileDictionaryService;
-import dev.filinhat.util.FileUtils;
 import dev.filinhat.validator.FiveDigitValidator;
 import dev.filinhat.validator.FourLetterValidator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -22,11 +20,11 @@ public class DictionaryConfiguration {
 
     @Bean
     public DictionaryApp dictionaryApp() {
-        return new DictionaryApp(dictionaryMap());
+        return new DictionaryApp(dictionaries());
     }
 
     @Bean
-    public Map<Integer, DictionaryService> dictionaryMap() {
+    public Map<Integer, DictionaryService> dictionaries() {
         Map<Integer, DictionaryService> dictionaryMap = new HashMap<>();
         dictionaryMap.put(1, fourLetterDictionaryService());
         dictionaryMap.put(2, fiveDigitDictionaryService());
@@ -35,7 +33,6 @@ public class DictionaryConfiguration {
 
     // создание экземпляров Path
     @Bean
-    @Primary
     public Path fourLetterDictionaryPath() {
         return Path.of("src/main/resources/fourLetterDictionary.txt");
     }
@@ -47,7 +44,6 @@ public class DictionaryConfiguration {
 
     // создание экземпляров репозиториев
     @Bean
-    @Primary
     public MapRepository fourLetterDictionaryRepository() {
         return new MapRepository(fourLetterDictionaryPath());
     }
@@ -65,7 +61,6 @@ public class DictionaryConfiguration {
     }
 
     @Bean
-    @Primary
     public FourLetterValidator fourLetterValidator() {
         return new FourLetterValidator();
     }
@@ -74,11 +69,17 @@ public class DictionaryConfiguration {
     //создание экземпляров сервисов
     @Bean
     public DictionaryService fourLetterDictionaryService() {
-        return new FileDictionaryService(fourLetterValidator(), fourLetterDictionaryRepository());
+        FileDictionaryService service = new FileDictionaryService();
+        service.setValidator(fourLetterValidator());
+        service.setRepository(fourLetterDictionaryRepository());
+        return service;
     }
 
     @Bean
     public DictionaryService fiveDigitDictionaryService() {
-        return new FileDictionaryService(fiveDigitValidator(), fiveDigitDictionaryRepository());
+        FileDictionaryService service = new FileDictionaryService();
+        service.setValidator(fiveDigitValidator());
+        service.setRepository(fiveDigitDictionaryRepository());
+        return service;
     }
 }

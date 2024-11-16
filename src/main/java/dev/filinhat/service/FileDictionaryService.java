@@ -8,11 +8,14 @@ import java.util.Map;
 
 @Service
 public class FileDictionaryService implements DictionaryService {
-    private final DictionaryValidator validator;
-    private final DictionaryRepository repository;
+    private DictionaryValidator validator;
+    private DictionaryRepository repository;
 
-    public FileDictionaryService(DictionaryValidator validator, DictionaryRepository repository) {
+    public void setValidator(DictionaryValidator validator) {
         this.validator = validator;
+    }
+
+    public void setRepository(DictionaryRepository repository) {
         this.repository = repository;
     }
 

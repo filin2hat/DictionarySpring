@@ -14,19 +14,19 @@ import java.util.Scanner;
 
 @Component
 public class DictionaryApp {
-    private final Map<Integer, DictionaryService> dictionaryMap;
-    private final Map<Integer, DictionaryCommand> commandMap = new HashMap<>();
+    private final Map<Integer, DictionaryService> dictionaries;
+    private final Map<Integer, DictionaryCommand> commands = new HashMap<>();
 
-    public DictionaryApp(Map<Integer, DictionaryService> dictionaryMap) {
-        this.dictionaryMap = dictionaryMap;
+    public DictionaryApp(Map<Integer, DictionaryService> dictionaries) {
+        this.dictionaries = dictionaries;
     }
 
-    private void initializeCommands(DictionaryService dictionary) {
-        commandMap.clear();
-        commandMap.put(1, new DisplayEntriesCommand(dictionary));
-        commandMap.put(2, new SearchEntryCommand(dictionary));
-        commandMap.put(3, new AddEntryCommand(dictionary));
-        commandMap.put(4, new DeleteEntryCommand(dictionary));
+    private void initializeCommands(DictionaryService service) {
+        commands.clear();
+        commands.put(1, new DisplayEntriesCommand(service));
+        commands.put(2, new SearchEntryCommand(service));
+        commands.put(3, new AddEntryCommand(service));
+        commands.put(4, new DeleteEntryCommand(service));
     }
 
     public void start() {
@@ -44,11 +44,11 @@ public class DictionaryApp {
 
             if (choice == 0) break;
 
-            DictionaryService currentDictionary = dictionaryMap.get(choice);
-            if (currentDictionary == null) {
+            DictionaryService dictionaryService = dictionaries.get(choice);
+            if (dictionaryService == null) {
                 System.out.println("\nНеверный выбор, попробуйте снова.");
             } else {
-                initializeCommands(currentDictionary);
+                initializeCommands(dictionaryService);
                 displayMenu(scanner);
             }
         }
@@ -71,7 +71,7 @@ public class DictionaryApp {
 
             if (action == 0) break;
 
-            DictionaryCommand command = commandMap.get(action);
+            DictionaryCommand command = commands.get(action);
             if (command != null) {
                 command.execute(scanner);
             } else {

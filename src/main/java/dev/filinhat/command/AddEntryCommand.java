@@ -5,10 +5,10 @@ import dev.filinhat.service.DictionaryService;
 import java.util.Scanner;
 
 public class AddEntryCommand implements DictionaryCommand {
-    private final DictionaryService dictionary;
+    private final DictionaryService service;
 
-    public AddEntryCommand(DictionaryService dictionary) {
-        this.dictionary = dictionary;
+    public AddEntryCommand(DictionaryService service) {
+        this.service = service;
     }
 
     @Override
@@ -19,7 +19,7 @@ public class AddEntryCommand implements DictionaryCommand {
         String value = scanner.nextLine();
 
         try {
-            dictionary.addEntry(key, value);
+            service.addEntry(key, value);
             System.out.println("\nЗапись добавлена.");
         } catch (IllegalArgumentException e) {
             System.out.println("\nОшибка: " + e.getMessage());

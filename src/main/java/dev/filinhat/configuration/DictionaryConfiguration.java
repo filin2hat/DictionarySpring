@@ -26,6 +26,14 @@ public class DictionaryConfiguration {
     }
 
     @Bean
+    public Map<Integer, DictionaryService> dictionaries() {
+        Map<Integer, DictionaryService> dictionaryMap = new HashMap<>();
+        dictionaryMap.put(1, fourLetterDictionaryService());
+        dictionaryMap.put(2, fiveDigitDictionaryService());
+        return dictionaryMap;
+    }
+
+    @Bean
     public Map<Integer, DictionaryCommand> dictionaryCommands() {
         Map<Integer, DictionaryCommand> commandMap = new HashMap<>();
         commandMap.put(1, displayEntriesCommand());
@@ -53,14 +61,6 @@ public class DictionaryConfiguration {
     @Bean
     public DeleteEntryCommand deleteEntryCommand() {
         return new DeleteEntryCommand();
-    }
-
-    @Bean
-    public Map<Integer, DictionaryService> dictionaries() {
-        Map<Integer, DictionaryService> dictionaryMap = new HashMap<>();
-        dictionaryMap.put(1, fourLetterDictionaryService());
-        dictionaryMap.put(2, fiveDigitDictionaryService());
-        return dictionaryMap;
     }
 
     @Bean

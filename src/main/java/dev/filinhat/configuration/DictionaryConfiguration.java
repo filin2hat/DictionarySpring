@@ -1,6 +1,7 @@
 package dev.filinhat.configuration;
 
 import dev.filinhat.DictionaryApp;
+import dev.filinhat.command.*;
 import dev.filinhat.repository.MapRepository;
 import dev.filinhat.service.DictionaryService;
 import dev.filinhat.service.FileDictionaryService;
@@ -9,6 +10,7 @@ import dev.filinhat.validator.FourLetterValidator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -20,7 +22,37 @@ public class DictionaryConfiguration {
 
     @Bean
     public DictionaryApp dictionaryApp() {
-        return new DictionaryApp(dictionaries());
+        return new DictionaryApp(dictionaries(), dictionaryCommands());
+    }
+
+    @Bean
+    public Map<Integer, DictionaryCommand> dictionaryCommands() {
+        Map<Integer, DictionaryCommand> commandMap = new HashMap<>();
+        commandMap.put(1, displayEntriesCommand());
+        commandMap.put(2, searchEntryCommand());
+        commandMap.put(3, addEntryCommand());
+        commandMap.put(4, deleteEntryCommand());
+        return commandMap;
+    }
+
+    @Bean
+    public DisplayEntriesCommand displayEntriesCommand() {
+        return new DisplayEntriesCommand();
+    }
+
+    @Bean
+    public SearchEntryCommand searchEntryCommand() {
+        return new SearchEntryCommand();
+    }
+
+    @Bean
+    public AddEntryCommand addEntryCommand() {
+        return new AddEntryCommand();
+    }
+
+    @Bean
+    public DeleteEntryCommand deleteEntryCommand() {
+        return new DeleteEntryCommand();
     }
 
     @Bean
@@ -31,8 +63,8 @@ public class DictionaryConfiguration {
         return dictionaryMap;
     }
 
-    // создание экземпляров Path
     @Bean
+    @Primary
     public Path fourLetterDictionaryPath() {
         return Path.of("src/main/resources/fourLetterDictionary.txt");
     }
@@ -42,7 +74,6 @@ public class DictionaryConfiguration {
         return Path.of("src/main/resources/fiveDigitDictionary.txt");
     }
 
-    // создание экземпляров репозиториев
     @Bean
     public MapRepository fourLetterDictionaryRepository() {
         return new MapRepository(fourLetterDictionaryPath());
@@ -54,7 +85,6 @@ public class DictionaryConfiguration {
     }
 
 
-    // создание экземпляров валидаторов
     @Bean
     public FiveDigitValidator fiveDigitValidator() {
         return new FiveDigitValidator();
@@ -66,7 +96,6 @@ public class DictionaryConfiguration {
     }
 
 
-    //создание экземпляров сервисов
     @Bean
     public DictionaryService fourLetterDictionaryService() {
         FileDictionaryService service = new FileDictionaryService();

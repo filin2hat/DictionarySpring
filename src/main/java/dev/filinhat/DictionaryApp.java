@@ -1,32 +1,36 @@
 package dev.filinhat;
 
 
-import dev.filinhat.command.*;
+import dev.filinhat.command.DictionaryCommand;
 import dev.filinhat.configuration.DictionaryConfiguration;
 import dev.filinhat.service.DictionaryService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * Класс приложения словаря.
+ */
 @Component
 public class DictionaryApp {
     private final Map<Integer, DictionaryService> dictionaries;
-    private final Map<Integer, DictionaryCommand> commands = new HashMap<>();
+    private final Map<Integer, DictionaryCommand> commands;
+    private DictionaryService dictionaryService;
 
-    public DictionaryApp(Map<Integer, DictionaryService> dictionaries) {
+    public DictionaryApp(
+            Map<Integer, DictionaryService> dictionaries,
+            Map<Integer, DictionaryCommand> commands) {
         this.dictionaries = dictionaries;
+        this.commands = commands;
     }
 
-    private void initializeCommands(DictionaryService service) {
-        commands.clear();
-        commands.put(1, new DisplayEntriesCommand(service));
-        commands.put(2, new SearchEntryCommand(service));
-        commands.put(3, new AddEntryCommand(service));
-        commands.put(4, new DeleteEntryCommand(service));
+    public static void main(String[] args) {
+        ApplicationContext context = new AnnotationConfigApplicationContext(DictionaryConfiguration.class);
+        DictionaryApp app = context.getBean(DictionaryApp.class);
+        app.start();
     }
 
     public void start() {
@@ -44,11 +48,11 @@ public class DictionaryApp {
 
             if (choice == 0) break;
 
-            DictionaryService dictionaryService = dictionaries.get(choice);
+            dictionaryService = dictionaries.get(choice);
+
             if (dictionaryService == null) {
                 System.out.println("\nНеверный выбор, попробуйте снова.");
             } else {
-                initializeCommands(dictionaryService);
                 displayMenu(scanner);
             }
         }
@@ -73,16 +77,12 @@ public class DictionaryApp {
 
             DictionaryCommand command = commands.get(action);
             if (command != null) {
+                command.removeService();
+                command.setService(dictionaryService);
                 command.execute(scanner);
             } else {
                 System.out.println("\nНеверный выбор, попробуйте снова.");
             }
         }
-    }
-
-    public static void main(String[] args) {
-        ApplicationContext context = new AnnotationConfigApplicationContext(DictionaryConfiguration.class);
-        DictionaryApp app = context.getBean(DictionaryApp.class);
-        app.start();
     }
 }

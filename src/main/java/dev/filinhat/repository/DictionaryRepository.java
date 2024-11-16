@@ -2,6 +2,9 @@ package dev.filinhat.repository;
 
 import java.util.Map;
 
+/**
+ * Интерфейс репозитория словаря.
+ */
 public interface DictionaryRepository {
 
     /**

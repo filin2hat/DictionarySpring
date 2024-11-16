@@ -1,18 +1,33 @@
 package dev.filinhat.command;
 
 import dev.filinhat.service.DictionaryService;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
+/**
+ * Команда для добавления новой записи в словарь.
+ */
+@Component
 public class AddEntryCommand implements DictionaryCommand {
-    private final DictionaryService service;
+    private DictionaryService service;
 
-    public AddEntryCommand(DictionaryService service) {
+    @Override
+    public void removeService() {
+        this.service = null;
+    }
+
+    @Override
+    public void setService(DictionaryService service) {
         this.service = service;
     }
 
     @Override
     public void execute(Scanner scanner) {
+        if (service == null) {
+            System.out.println("\nСервис не установлен.");
+            return;
+        }
         System.out.print("\nВведите ключ: ");
         String key = scanner.nextLine();
         System.out.print("\nВведите значение: ");

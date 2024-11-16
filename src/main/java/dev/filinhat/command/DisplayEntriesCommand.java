@@ -1,19 +1,35 @@
 package dev.filinhat.command;
 
 import dev.filinhat.service.DictionaryService;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * Команда для отображения всех записей словаря.
+ */
+@Component
 public class DisplayEntriesCommand implements DictionaryCommand {
-    private final DictionaryService service;
+    private DictionaryService service;
 
-    public DisplayEntriesCommand(DictionaryService service) {
+    @Override
+    public void setService(DictionaryService service) {
         this.service = service;
     }
 
     @Override
+    public void removeService() {
+        this.service = null;
+    }
+
+    @Override
     public void execute(Scanner scanner) {
+        if (service == null) {
+            System.out.println("\nСервис не установлен.");
+            return;
+        }
+
         Map<String, String> entries = service.readEntries();
         if (entries.isEmpty()) {
             System.out.println("\nСловарь пуст.");

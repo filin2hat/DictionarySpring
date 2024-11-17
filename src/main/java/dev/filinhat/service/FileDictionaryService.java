@@ -2,11 +2,9 @@ package dev.filinhat.service;
 
 import dev.filinhat.repository.DictionaryRepository;
 import dev.filinhat.validator.DictionaryValidator;
-import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
-@Service
 public class FileDictionaryService implements DictionaryService {
     private final DictionaryValidator validator;
     private final DictionaryRepository repository;

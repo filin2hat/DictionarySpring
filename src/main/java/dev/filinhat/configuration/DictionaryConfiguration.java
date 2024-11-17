@@ -1,6 +1,7 @@
 package dev.filinhat.configuration;
 
 import dev.filinhat.command.*;
+import dev.filinhat.repository.DictionaryRepository;
 import dev.filinhat.repository.MapRepository;
 import dev.filinhat.service.DictionaryService;
 import dev.filinhat.service.FileDictionaryService;
@@ -10,7 +11,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -46,7 +46,6 @@ public class DictionaryConfiguration {
     }
 
     @Bean
-    @Primary
     public Path fourLetterDictionaryPath() {
         return Path.of("src/main/resources/fourLetterDictionary.txt");
     }
@@ -57,15 +56,14 @@ public class DictionaryConfiguration {
     }
 
     @Bean
-    @Primary
-    public MapRepository fourLetterDictionaryRepository(
+    public DictionaryRepository fourLetterDictionaryRepository(
             @Qualifier("fourLetterDictionaryPath") Path fourLetterDictionaryPath
     ) {
         return new MapRepository(fourLetterDictionaryPath);
     }
 
     @Bean
-    public MapRepository fiveDigitDictionaryRepository(
+    public DictionaryRepository fiveDigitDictionaryRepository(
             @Qualifier("fiveDigitDictionaryPath") Path fiveDigitDictionaryPath
     ) {
         return new MapRepository(fiveDigitDictionaryPath);
@@ -74,16 +72,16 @@ public class DictionaryConfiguration {
 
     @Bean
     public DictionaryService fourLetterDictionaryService(
-            @Qualifier("fourLetterValidator") FourLetterValidator fourLetterValidator,
-            @Qualifier("fourLetterDictionaryRepository") MapRepository fourLetterDictionaryRepository
+            FourLetterValidator fourLetterValidator,
+            @Qualifier("fourLetterDictionaryRepository") DictionaryRepository fourLetterDictionaryRepository
     ) {
         return new FileDictionaryService(fourLetterValidator, fourLetterDictionaryRepository);
     }
 
     @Bean
     public DictionaryService fiveDigitDictionaryService(
-            @Qualifier("fiveDigitValidator") FiveDigitValidator fiveDigitValidator,
-            @Qualifier("fiveDigitDictionaryRepository") MapRepository fiveDigitDictionaryRepository
+            FiveDigitValidator fiveDigitValidator,
+            @Qualifier("fiveDigitDictionaryRepository") DictionaryRepository fiveDigitDictionaryRepository
     ) {
         return new FileDictionaryService(fiveDigitValidator, fiveDigitDictionaryRepository);
     }

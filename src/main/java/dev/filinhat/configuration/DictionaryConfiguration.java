@@ -1,6 +1,5 @@
 package dev.filinhat.configuration;
 
-import dev.filinhat.DictionaryApp;
 import dev.filinhat.command.*;
 import dev.filinhat.repository.MapRepository;
 import dev.filinhat.service.DictionaryService;
@@ -21,12 +20,7 @@ import java.util.Map;
 public class DictionaryConfiguration {
 
     @Bean
-    public DictionaryApp dictionaryApp() {
-        return new DictionaryApp(dictionaries(), dictionaryCommands());
-    }
-
-    @Bean
-    public Map<Integer, DictionaryService> dictionaries() {
+    public Map<Integer, DictionaryService> dictionaryServices() {
         Map<Integer, DictionaryService> dictionaryMap = new HashMap<>();
         dictionaryMap.put(1, fourLetterDictionaryService());
         dictionaryMap.put(2, fiveDigitDictionaryService());
@@ -34,33 +28,17 @@ public class DictionaryConfiguration {
     }
 
     @Bean
-    public Map<Integer, DictionaryCommand> dictionaryCommands() {
+    public Map<Integer, DictionaryCommand> dictionaryCommands(
+            DisplayEntriesCommand displayEntriesCommand,
+            SearchEntryCommand searchEntryCommand,
+            AddEntryCommand addEntryCommand,
+            DeleteEntryCommand deleteEntryCommand) {
         Map<Integer, DictionaryCommand> commandMap = new HashMap<>();
-        commandMap.put(1, displayEntriesCommand());
-        commandMap.put(2, searchEntryCommand());
-        commandMap.put(3, addEntryCommand());
-        commandMap.put(4, deleteEntryCommand());
+        commandMap.put(1, displayEntriesCommand);
+        commandMap.put(2, searchEntryCommand);
+        commandMap.put(3, addEntryCommand);
+        commandMap.put(4, deleteEntryCommand);
         return commandMap;
-    }
-
-    @Bean
-    public DisplayEntriesCommand displayEntriesCommand() {
-        return new DisplayEntriesCommand();
-    }
-
-    @Bean
-    public SearchEntryCommand searchEntryCommand() {
-        return new SearchEntryCommand();
-    }
-
-    @Bean
-    public AddEntryCommand addEntryCommand() {
-        return new AddEntryCommand();
-    }
-
-    @Bean
-    public DeleteEntryCommand deleteEntryCommand() {
-        return new DeleteEntryCommand();
     }
 
     @Bean
@@ -74,41 +52,18 @@ public class DictionaryConfiguration {
         return Path.of("src/main/resources/fiveDigitDictionary.txt");
     }
 
-    @Bean
-    public MapRepository fourLetterDictionaryRepository() {
-        return new MapRepository(fourLetterDictionaryPath());
-    }
-
-    @Bean
-    public MapRepository fiveDigitDictionaryRepository() {
-        return new MapRepository(fiveDigitDictionaryPath());
-    }
-
-
-    @Bean
-    public FiveDigitValidator fiveDigitValidator() {
-        return new FiveDigitValidator();
-    }
-
-    @Bean
-    public FourLetterValidator fourLetterValidator() {
-        return new FourLetterValidator();
-    }
-
 
     @Bean
     public DictionaryService fourLetterDictionaryService() {
-        FileDictionaryService service = new FileDictionaryService();
-        service.setValidator(fourLetterValidator());
-        service.setRepository(fourLetterDictionaryRepository());
-        return service;
+        FourLetterValidator fourLetterValidator = new FourLetterValidator();
+        MapRepository fourLetterDictionaryRepository = new MapRepository(fourLetterDictionaryPath());
+        return new FileDictionaryService(fourLetterValidator, fourLetterDictionaryRepository);
     }
 
     @Bean
     public DictionaryService fiveDigitDictionaryService() {
-        FileDictionaryService service = new FileDictionaryService();
-        service.setValidator(fiveDigitValidator());
-        service.setRepository(fiveDigitDictionaryRepository());
-        return service;
+        FiveDigitValidator fiveDigitValidator = new FiveDigitValidator();
+        MapRepository fiveDigitDictionaryRepository = new MapRepository(fiveDigitDictionaryPath());
+        return new FileDictionaryService(fiveDigitValidator, fiveDigitDictionaryRepository);
     }
 }

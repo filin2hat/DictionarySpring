@@ -16,15 +16,15 @@ import java.util.Scanner;
  */
 @Component
 public class DictionaryApp {
-    private final Map<Integer, DictionaryService> dictionaries;
+    private final Map<Integer, DictionaryService> dictionaryServices;
     private final Map<Integer, DictionaryCommand> commands;
     private DictionaryService dictionaryService;
 
     public DictionaryApp(
-            Map<Integer, DictionaryService> dictionaries,
-            Map<Integer, DictionaryCommand> commands) {
-        this.dictionaries = dictionaries;
-        this.commands = commands;
+            Map<Integer, DictionaryService> dictionaryServices,
+            Map<Integer, DictionaryCommand> dictionaryCommands) {
+        this.dictionaryServices = dictionaryServices;
+        this.commands = dictionaryCommands;
     }
 
     public static void main(String[] args) {
@@ -46,9 +46,11 @@ public class DictionaryApp {
             int choice = scanner.nextInt();
             scanner.nextLine();
 
-            if (choice == 0) break;
+            if (choice == 0) {
+                break;
+            }
 
-            dictionaryService = dictionaries.get(choice);
+            dictionaryService = dictionaryServices.get(choice);
 
             if (dictionaryService == null) {
                 System.out.println("\nНеверный выбор, попробуйте снова.");

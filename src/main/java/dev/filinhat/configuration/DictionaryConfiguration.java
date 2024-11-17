@@ -46,27 +46,15 @@ public class DictionaryConfiguration {
     }
 
     @Bean
-    public Path fourLetterDictionaryPath() {
-        return Path.of("src/main/resources/fourLetterDictionary.txt");
-    }
-
-    @Bean
-    public Path fiveDigitDictionaryPath() {
-        return Path.of("src/main/resources/fiveDigitDictionary.txt");
-    }
-
-    @Bean
     public DictionaryRepository fourLetterDictionaryRepository(
-            @Qualifier("fourLetterDictionaryPath") Path fourLetterDictionaryPath
     ) {
-        return new MapRepository(fourLetterDictionaryPath);
+        return new MapRepository(Path.of("src/main/resources/fourLetterDictionary.txt"));
     }
 
     @Bean
     public DictionaryRepository fiveDigitDictionaryRepository(
-            @Qualifier("fiveDigitDictionaryPath") Path fiveDigitDictionaryPath
     ) {
-        return new MapRepository(fiveDigitDictionaryPath);
+        return new MapRepository(Path.of("src/main/resources/fiveDigitDictionary.txt"));
     }
 
 

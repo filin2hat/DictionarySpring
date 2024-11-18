@@ -21,13 +21,13 @@ public class DictionaryCommandResolver {
 
     @PostConstruct
     private void init() {
-        for (DictionaryCommand command : commandList) {
-            commandMap.put(command.getActionKey(), command);
-        }
+        commandList.forEach(command -> commandMap.put(command.getActionKey(), command));
     }
+
 
     /**
      * Резолвит команду по ключу действия.
+     *
      * @param action номер действия.
      * @return команда словаря
      */

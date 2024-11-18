@@ -18,6 +18,11 @@ public class SearchEntryCommand implements DictionaryCommand {
     }
 
     @Override
+    public int getActionKey() {
+        return 2; // Уникальный ключ для команды "Поиск записи"
+    }
+
+    @Override
     public void removeService() {
         this.service = null;
     }

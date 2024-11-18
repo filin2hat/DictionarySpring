@@ -18,6 +18,11 @@ public class DeleteEntryCommand implements DictionaryCommand {
     }
 
     @Override
+    public int getActionKey() {
+        return 4; // Уникальный ключ для команды "Удалить запись"
+    }
+
+    @Override
     public void removeService() {
         this.service = null;
     }

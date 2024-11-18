@@ -19,6 +19,11 @@ public class DisplayEntriesCommand implements DictionaryCommand {
     }
 
     @Override
+    public int getActionKey() {
+        return 1; // Уникальный ключ для команды "Отобразить запись"
+    }
+
+    @Override
     public void removeService() {
         this.service = null;
     }

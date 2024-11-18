@@ -32,20 +32,6 @@ public class DictionaryConfiguration {
     }
 
     @Bean
-    public Map<Integer, DictionaryCommand> dictionaryCommands(
-            DisplayEntriesCommand displayEntriesCommand,
-            SearchEntryCommand searchEntryCommand,
-            AddEntryCommand addEntryCommand,
-            DeleteEntryCommand deleteEntryCommand) {
-        Map<Integer, DictionaryCommand> commandMap = new HashMap<>();
-        commandMap.put(1, displayEntriesCommand);
-        commandMap.put(2, searchEntryCommand);
-        commandMap.put(3, addEntryCommand);
-        commandMap.put(4, deleteEntryCommand);
-        return commandMap;
-    }
-
-    @Bean
     public DictionaryRepository fourLetterDictionaryRepository(
     ) {
         return new MapRepository(Path.of("src/main/resources/fourLetterDictionary.txt"));

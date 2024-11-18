@@ -5,12 +5,14 @@ import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
-/**
- * Команда для добавления новой записи в словарь.
- */
 @Component
 public class AddEntryCommand implements DictionaryCommand {
     private DictionaryService service;
+
+    @Override
+    public int getActionKey() {
+        return 3; // Уникальный ключ для команды "Добавить запись"
+    }
 
     @Override
     public void removeService() {

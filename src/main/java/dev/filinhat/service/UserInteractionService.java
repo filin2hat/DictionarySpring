@@ -1,6 +1,7 @@
 package dev.filinhat.service;
 
 import dev.filinhat.command.DictionaryCommand;
+import dev.filinhat.command.DictionaryCommandResolver;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -9,14 +10,14 @@ import java.util.Scanner;
 @Service
 public class UserInteractionService implements UserInteraction {
     private final Map<Integer, DictionaryService> dictionaryServices;
-    private final Map<Integer, DictionaryCommand> commands;
+    private final DictionaryCommandResolver commandResolver;
     private DictionaryService dictionaryService;
 
     public UserInteractionService(
             Map<Integer, DictionaryService> dictionaryServices,
-            Map<Integer, DictionaryCommand> dictionaryCommands) {
+            DictionaryCommandResolver commandResolver) {
         this.dictionaryServices = dictionaryServices;
-        this.commands = dictionaryCommands;
+        this.commandResolver = commandResolver;
     }
 
     @Override
@@ -64,7 +65,7 @@ public class UserInteractionService implements UserInteraction {
 
             if (action == 0) break;
 
-            DictionaryCommand command = commands.get(action);
+            DictionaryCommand command = commandResolver.resolve(action);
             if (command != null) {
                 command.removeService();
                 command.setService(dictionaryService);

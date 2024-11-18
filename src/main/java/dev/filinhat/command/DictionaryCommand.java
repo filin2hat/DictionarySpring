@@ -9,21 +9,27 @@ import java.util.Scanner;
  */
 public interface DictionaryCommand {
 
+    /**
+     * Возвращает уникальный ключ действия команды.
+     *
+     * @return ключ действия
+     */
+    int getActionKey();
 
     /**
-     * Удаляет сервис словаря
+     * Удаляет сервис словаря.
      */
     void removeService();
 
     /**
-     * Устанавливает сервис словаря
+     * Устанавливает сервис словаря.
      *
      * @param service сервис словаря
      */
     void setService(DictionaryService service);
 
     /**
-     * Выполняет команду словаря
+     * Выполняет команду словаря.
      *
      * @param scanner сканер ввода
      */

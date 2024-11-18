@@ -10,6 +10,9 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Утильный класс для работы с файлами.
+ */
 public class FileUtils {
 
     /**

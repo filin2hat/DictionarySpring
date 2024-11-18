@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * Сервис взаимодействия с пользователем в консоли.
+ */
 @Service
 public class UserInteractionService implements UserInteraction {
     private final Map<Integer, DictionaryService> dictionaryServices;

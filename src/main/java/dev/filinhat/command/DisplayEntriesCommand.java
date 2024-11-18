@@ -11,6 +11,8 @@ import java.util.Scanner;
  */
 @Component
 public class DisplayEntriesCommand implements DictionaryCommand {
+
+    private static final int DISPLAY_ENTRY_COMMAND_KEY = 1;
     private DictionaryService service;
 
     @Override
@@ -20,7 +22,7 @@ public class DisplayEntriesCommand implements DictionaryCommand {
 
     @Override
     public int getActionKey() {
-        return 1; // Уникальный ключ для команды "Отобразить запись"
+        return DISPLAY_ENTRY_COMMAND_KEY;
     }
 
     @Override

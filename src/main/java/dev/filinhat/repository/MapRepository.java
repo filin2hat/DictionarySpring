@@ -6,6 +6,9 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Репозиторий словаря в виде HashMap, хранящий данные в файлах на диске.
+ */
 public class MapRepository implements DictionaryRepository {
     private final Path filePath;
     private final Map<String, String> entries;

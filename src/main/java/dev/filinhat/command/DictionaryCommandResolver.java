@@ -7,10 +7,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Класс резолвера команд словаря.
+ */
 @Component
 public class DictionaryCommandResolver {
-    private final List<DictionaryCommand> commandList; // Список всех команд
-    private final Map<Integer, DictionaryCommand> commandMap = new HashMap<>(); // Мапа стратегий
+    private final List<DictionaryCommand> commandList;
+    private final Map<Integer, DictionaryCommand> commandMap = new HashMap<>();
 
     public DictionaryCommandResolver(List<DictionaryCommand> commandList) {
         this.commandList = commandList;
@@ -23,6 +26,11 @@ public class DictionaryCommandResolver {
         }
     }
 
+    /**
+     * Резолвит команду по ключу действия.
+     * @param action номер действия.
+     * @return команда словаря
+     */
     public DictionaryCommand resolve(int action) {
         return commandMap.get(action);
     }

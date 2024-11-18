@@ -5,6 +5,9 @@ import dev.filinhat.service.UserInteraction;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+/**
+ * Главный класс приложения.
+ */
 public class DictionaryApp {
     public static void main(String[] args) {
         ApplicationContext context = new AnnotationConfigApplicationContext(DictionaryConfiguration.class);

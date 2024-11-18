@@ -10,6 +10,8 @@ import java.util.Scanner;
  */
 @Component
 public class DeleteEntryCommand implements DictionaryCommand {
+
+    private static final int DELETE_ENTRY_COMMAND_KEY = 4;
     private DictionaryService service;
 
     @Override
@@ -19,7 +21,7 @@ public class DeleteEntryCommand implements DictionaryCommand {
 
     @Override
     public int getActionKey() {
-        return 4; // Уникальный ключ для команды "Удалить запись"
+        return DELETE_ENTRY_COMMAND_KEY;
     }
 
     @Override

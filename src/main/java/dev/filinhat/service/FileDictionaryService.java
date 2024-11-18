@@ -5,6 +5,9 @@ import dev.filinhat.validator.DictionaryValidator;
 
 import java.util.Map;
 
+/**
+ * Сервис для работы с файловым словарем
+ */
 public class FileDictionaryService implements DictionaryService {
     private final DictionaryValidator validator;
     private final DictionaryRepository repository;

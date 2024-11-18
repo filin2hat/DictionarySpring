@@ -10,6 +10,8 @@ import java.util.Scanner;
  */
 @Component
 public class SearchEntryCommand implements DictionaryCommand {
+
+    private static final int SEARCH_ENTRY_COMMAND_KEY = 2;
     private DictionaryService service;
 
     @Override
@@ -19,7 +21,7 @@ public class SearchEntryCommand implements DictionaryCommand {
 
     @Override
     public int getActionKey() {
-        return 2; // Уникальный ключ для команды "Поиск записи"
+        return SEARCH_ENTRY_COMMAND_KEY;
     }
 
     @Override

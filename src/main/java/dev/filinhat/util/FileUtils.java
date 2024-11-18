@@ -1,5 +1,7 @@
 package dev.filinhat.util;
 
+import org.springframework.stereotype.Component;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -8,22 +10,8 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
+@Component
 public class FileUtils {
-    private static volatile FileUtils instance;
-
-    private FileUtils() {
-    }
-
-    public static FileUtils getInstance() {
-        if (instance == null) {
-            synchronized (FileUtils.class) {
-                if (instance == null) {
-                    instance = new FileUtils();
-                }
-            }
-        }
-        return instance;
-    }
 
     /**
      * Чтение записей из файла в Map.

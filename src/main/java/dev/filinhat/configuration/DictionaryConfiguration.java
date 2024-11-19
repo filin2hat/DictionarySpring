@@ -3,7 +3,7 @@ package dev.filinhat.configuration;
 import dev.filinhat.repository.DictionaryRepository;
 import dev.filinhat.repository.MapRepository;
 import dev.filinhat.service.DictionaryService;
-import dev.filinhat.service.FileDictionaryService;
+import dev.filinhat.service.FileDictionaryServiceImpl;
 import dev.filinhat.validator.FiveDigitValidator;
 import dev.filinhat.validator.FourLetterValidator;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -66,7 +66,7 @@ public class DictionaryConfiguration {
     /**
      * Создает сервис словаря для четырехбуквенных ключей.
      * <p>
-     * {@link FileDictionaryService} будет использоваться для реализации методов,
+     * {@link FileDictionaryServiceImpl} будет использоваться для реализации методов,
      * а {@link FourLetterValidator} - для валидации ключей.
      * <p>
      * Репозиторием словаря будет {@link DictionaryRepository}, созданный методом
@@ -77,17 +77,18 @@ public class DictionaryConfiguration {
      * @return экземпляр {@link DictionaryService} для четырехбуквенных ключей
      */
     @Bean
+    @Qualifier("fourLetterDictionaryService")
     public DictionaryService fourLetterDictionaryService(
             FourLetterValidator fourLetterValidator,
             @Qualifier("fourLetterDictionaryRepository") DictionaryRepository fourLetterDictionaryRepository
     ) {
-        return new FileDictionaryService(fourLetterValidator, fourLetterDictionaryRepository);
+        return new FileDictionaryServiceImpl(fourLetterValidator, fourLetterDictionaryRepository);
     }
 
     /**
      * Создает сервис словаря для пятицифровых ключей.
      * <p>
-     * {@link FileDictionaryService} будет использоваться для реализации методов,
+     * {@link FileDictionaryServiceImpl} будет использоваться для реализации методов,
      * а {@link FiveDigitValidator} - для валидации ключей.
      * <p>
      * Репозиторием словаря будет {@link DictionaryRepository}, созданный методом
@@ -98,10 +99,11 @@ public class DictionaryConfiguration {
      * @return экземпляр {@link DictionaryService} для пятицифровых ключей
      */
     @Bean
+    @Qualifier("fiveDigitDictionaryService")
     public DictionaryService fiveDigitDictionaryService(
             FiveDigitValidator fiveDigitValidator,
             @Qualifier("fiveDigitDictionaryRepository") DictionaryRepository fiveDigitDictionaryRepository
     ) {
-        return new FileDictionaryService(fiveDigitValidator, fiveDigitDictionaryRepository);
+        return new FileDictionaryServiceImpl(fiveDigitValidator, fiveDigitDictionaryRepository);
     }
 }

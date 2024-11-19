@@ -11,12 +11,12 @@ import java.util.Scanner;
  * Сервис взаимодействия с пользователем в консоли.
  */
 @Service
-public class UserInteractionService implements UserInteraction {
+public class UserInteractionServiceImpl implements UserInteraction {
     private final Map<Integer, DictionaryService> dictionaryServices;
     private final DictionaryCommandResolver commandResolver;
     private DictionaryService dictionaryService;
 
-    public UserInteractionService(
+    public UserInteractionServiceImpl(
             Map<Integer, DictionaryService> dictionaryServices,
             DictionaryCommandResolver commandResolver) {
         this.dictionaryServices = dictionaryServices;

@@ -6,6 +6,7 @@ import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Класс резолвера команд словаря.
@@ -21,7 +22,8 @@ public class DictionaryCommandResolver {
 
     @PostConstruct
     private void init() {
-        commandList.forEach(command -> commandMap.put(command.getActionKey(), command));
+        commandMap.putAll(commandList.stream()
+                .collect(Collectors.toMap(DictionaryCommand::getActionKey, command -> command)));
     }
 
 

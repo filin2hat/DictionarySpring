@@ -32,7 +32,6 @@ public class FileDictionaryServiceImpl implements DictionaryService {
 
     @Override
     public void deleteEntry(String key) {
-        // Проверяем наличие записи в репозитории
         if (!repository.existsByKey(key)) {
             throw new IllegalArgumentException("Запись с ключом '" + key + "' не найдена.");
         }

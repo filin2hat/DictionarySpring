@@ -12,10 +12,12 @@ import java.util.Map;
 @RequestMapping("api/v1/dictionary")
 public class DictionaryController {
 
-    private final @Qualifier("fourLetterDictionaryService") DictionaryService fourLetterDictionaryService;
-    private final @Qualifier("fiveDigitDictionaryService") DictionaryService fiveDigitDictionaryService;
+    private final @Qualifier("fourLetterDictionaryDbService") DictionaryService fourLetterDictionaryService;
+    private final @Qualifier("fiveDigitDictionaryDbService") DictionaryService fiveDigitDictionaryService;
 
-    public DictionaryController(DictionaryService fourLetterDictionaryService, DictionaryService fiveDigitDictionaryService) {
+    public DictionaryController(
+            @Qualifier("fourLetterDictionaryDbService") DictionaryService fourLetterDictionaryService,
+            @Qualifier("fiveDigitDictionaryDbService") DictionaryService fiveDigitDictionaryService) {
         this.fourLetterDictionaryService = fourLetterDictionaryService;
         this.fiveDigitDictionaryService = fiveDigitDictionaryService;
     }

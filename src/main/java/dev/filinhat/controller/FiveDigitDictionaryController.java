@@ -3,7 +3,6 @@ package dev.filinhat.controller;
 import dev.filinhat.service.DictionaryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Map;
 
@@ -24,29 +23,17 @@ public class FiveDigitDictionaryController {
 
     @GetMapping("/{key}")
     public String getEntry(@PathVariable String key) {
-        try {
-            return fiveDigitDictionaryService.searchEntry(key);
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
+        return fiveDigitDictionaryService.searchEntry(key);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void addEntry(@RequestParam String key, @RequestParam String value) {
-        try {
-            fiveDigitDictionaryService.addEntry(key, value);
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
+        fiveDigitDictionaryService.addEntry(key, value);
     }
 
     @DeleteMapping("/{key}")
     public void deleteEntry(@PathVariable String key) {
-        try {
-            fiveDigitDictionaryService.deleteEntry(key);
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
+        fiveDigitDictionaryService.deleteEntry(key);
     }
 }

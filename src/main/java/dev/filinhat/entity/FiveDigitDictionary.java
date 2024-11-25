@@ -10,10 +10,8 @@ public class FiveDigitDictionary {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 5, nullable = false)
     private String key;
 
-    @Column(nullable = false)
     private String value;
 
     public String getKey() {

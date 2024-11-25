@@ -1,5 +1,6 @@
 package dev.filinhat.controller;
 
+import dev.filinhat.dto.DictionaryDto;
 import dev.filinhat.service.DictionaryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -28,8 +29,8 @@ public class FourLetterDictionaryController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void addEntry(@RequestParam String key, @RequestParam String value) {
-        fourLetterDictionaryService.addEntry(key, value);
+    public void addEntry(@RequestBody DictionaryDto entryDto) {
+        fourLetterDictionaryService.addEntry(entryDto.key(), entryDto.value());
     }
 
     @DeleteMapping("/{key}")

@@ -46,16 +46,16 @@ public class FiveDigitDictionaryDbService implements DictionaryService {
     @Override
     @Transactional
     public void deleteEntry(String key) {
-        if (!repository.existsById(key)) {
+        if (!repository.existsByKey(key)) {
             throw new IllegalArgumentException("Entry with key '" + key + "' does not exist");
         }
-        repository.deleteById(key);
+        repository.deleteByKey(key);
     }
 
     @Override
     @Transactional(readOnly = true)
     public String searchEntry(String key) {
-        return repository.findById(key)
+        return repository.findByKey(key)
                 .map(FiveDigitDictionary::getValue)
                 .orElse(null);
     }

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/dictionary/four-letter")
@@ -19,19 +19,19 @@ public class FourLetterDictionaryController {
     }
 
     @GetMapping
-    public Map<String, String> readEntries() {
+    public List<DictionaryDto> readEntries() {
         return fourLetterDictionaryService.readEntries();
     }
 
     @GetMapping("/{key}")
-    public String getEntry(@PathVariable String key) {
+    public DictionaryDto getEntry(@PathVariable String key) {
         return fourLetterDictionaryService.searchEntry(key);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void addEntry(@RequestBody DictionaryDto entryDto) {
-        fourLetterDictionaryService.addEntry(entryDto.key(), entryDto.value());
+        fourLetterDictionaryService.addEntry(entryDto);
     }
 
     @DeleteMapping("/{key}")

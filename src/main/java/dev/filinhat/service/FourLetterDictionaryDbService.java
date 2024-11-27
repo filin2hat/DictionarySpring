@@ -1,45 +1,38 @@
 package dev.filinhat.service;
 
+import dev.filinhat.dto.DictionaryDto;
 import dev.filinhat.entity.FourLetterDictionary;
 import dev.filinhat.repository.FourLetterDictionaryDbRepository;
-import dev.filinhat.validator.DictionaryValidator;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Map;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class FourLetterDictionaryDbService implements DictionaryService {
 
-    private final DictionaryValidator validator;
     private final FourLetterDictionaryDbRepository repository;
 
-    public FourLetterDictionaryDbService(
-            @Qualifier("fourLetterValidator") DictionaryValidator validator,
-            FourLetterDictionaryDbRepository repository) {
-        this.validator = validator;
+    public FourLetterDictionaryDbService(FourLetterDictionaryDbRepository repository) {
         this.repository = repository;
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Map<String, String> readEntries() {
+    public List<DictionaryDto> readEntries() {
         return repository.findAll()
                 .stream()
-                .collect(Collectors.toMap(FourLetterDictionary::getKey, FourLetterDictionary::getValue));
+                .map(entry -> new DictionaryDto(entry.getKey(), entry.getValue()))
+                .collect(Collectors.toList());
     }
 
     @Override
     @Transactional
-    public void addEntry(String key, String value) {
-        if (!validator.isValidKey(key)) {
-            throw new IllegalArgumentException("Key is invalid for four-letter dictionary");
-        }
-        FourLetterDictionary entry = new FourLetterDictionary();
-        entry.setKey(key);
-        entry.setValue(value);
+    public void addEntry(DictionaryDto dto) {
+        var entry = new FourLetterDictionary();
+        entry.setKey(dto.key());
+        entry.setValue(dto.value());
         repository.save(entry);
     }
 
@@ -54,9 +47,9 @@ public class FourLetterDictionaryDbService implements DictionaryService {
 
     @Override
     @Transactional(readOnly = true)
-    public String searchEntry(String key) {
+    public DictionaryDto searchEntry(String key) {
         return repository.findById(key)
-                .map(FourLetterDictionary::getValue)
+                .map(entry -> new DictionaryDto(entry.getKey(), entry.getValue()))
                 .orElse(null);
     }
 }

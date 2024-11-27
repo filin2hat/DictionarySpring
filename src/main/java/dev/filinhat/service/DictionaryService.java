@@ -1,6 +1,8 @@
 package dev.filinhat.service;
 
-import java.util.Map;
+import dev.filinhat.dto.DictionaryDto;
+
+import java.util.List;
 
 /**
  * Интерфейс сервиса словаря.
@@ -10,16 +12,15 @@ public interface DictionaryService {
     /**
      * Возвращает все записи из словаря.
      */
-    Map<String, String> readEntries();
+    List<DictionaryDto> readEntries();
 
     /**
      * Добавляет новую запись в словарь.
      *
-     * @param key   ключ записи.
-     * @param value значение записи.
+     * @param dto запись словаря.
      * @throws IllegalArgumentException если ключ не соответствует требованиям валидатора.
      */
-    void addEntry(String key, String value);
+    void addEntry(DictionaryDto dto);
 
     /**
      * Удаляет запись из словаря по ключу.
@@ -32,7 +33,7 @@ public interface DictionaryService {
      * Ищет запись по ключу.
      *
      * @param key ключ записи.
-     * @return значение записи или null, если запись не найдена.
+     * @return DTO записи или null, если запись не найдена.
      */
-    String searchEntry(String key);
+    DictionaryDto searchEntry(String key);
 }

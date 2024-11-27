@@ -2,6 +2,7 @@ package dev.filinhat.controller;
 
 import dev.filinhat.dto.DictionaryDto;
 import dev.filinhat.service.DictionaryService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +14,7 @@ public class FiveDigitDictionaryController {
 
     private final DictionaryService fiveDigitDictionaryService;
 
-    public FiveDigitDictionaryController(DictionaryService fiveDigitDictionaryService) {
+    public FiveDigitDictionaryController(@Qualifier("fiveDigitDictionaryDbService") DictionaryService fiveDigitDictionaryService) {
         this.fiveDigitDictionaryService = fiveDigitDictionaryService;
     }
 

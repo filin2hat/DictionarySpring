@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: v1-2
+      author: Biryulin Dmitriy
+
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            tableExists:
+              tableName: five_digit_dictionary
+
+      changes:
+        - createTable:
+            tableName: four_letter_dictionary
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                  autoIncrement: true
+              - column:
+                  name: key
+                  type: varchar(4)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: value
+                  type: varchar(255)
+                  constraints:
+                    nullable: false

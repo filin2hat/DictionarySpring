@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DiffGenerationConfig">
+    <option name="snapshotDb" value="false" />
+    <option name="snapshotModelValue" value="dictionary:entityManagerFactory" />
+    <option name="updateChangeLogPath" value="src/main/resources/db/changelog/changelog-master.yaml" />
+    <option name="updateDbConnectionName" value="82e9bcfd-5a94-4772-a7ba-df7a1a6229f6" />
+  </component>
+</project>

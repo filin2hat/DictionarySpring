@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - include:
+      file: v1-create-four-letter-dict-changelog.yml
+      relativeToChangelogFile: true
+
+  - include:
+      file: v1-create-five-digit-dict-changelog.yml
+      relativeToChangelogFile: true

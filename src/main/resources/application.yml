@@ -4,12 +4,17 @@ spring:
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
+
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-    show-sql: true
     properties:
       hibernate:
         format_sql: true
+        show_sql: true
+
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/changelog/main-changelog.yml

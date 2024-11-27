@@ -3,8 +3,8 @@ package dev.filinhat.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "five_digit_dictionary")
-public class FiveDigitDictionary {
+@Table(name = "four_letter_dictionary")
+public class FourLetterDictionaryEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

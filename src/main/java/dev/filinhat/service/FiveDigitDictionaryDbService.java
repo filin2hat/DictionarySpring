@@ -1,7 +1,7 @@
 package dev.filinhat.service;
 
 import dev.filinhat.dto.DictionaryDto;
-import dev.filinhat.entity.FiveDigitDictionary;
+import dev.filinhat.entity.FiveDigitDictionaryEntity;
 import dev.filinhat.repository.FiveDigitDictionaryDbRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +29,7 @@ public class FiveDigitDictionaryDbService implements DictionaryService {
     @Override
     @Transactional
     public void addEntry(DictionaryDto dto) {
-        var entry = new FiveDigitDictionary();
+        var entry = new FiveDigitDictionaryEntity();
         entry.setKey(dto.key());
         entry.setValue(dto.value());
         repository.save(entry);
@@ -38,16 +38,16 @@ public class FiveDigitDictionaryDbService implements DictionaryService {
     @Override
     @Transactional
     public void deleteEntry(String key) {
-        if (!repository.existsById(key)) {
+        if (!repository.existsByKey(key)) {
             throw new IllegalArgumentException("Entry with key '" + key + "' does not exist");
         }
-        repository.deleteById(key);
+        repository.deleteByKey(key);
     }
 
     @Override
     @Transactional(readOnly = true)
     public DictionaryDto searchEntry(String key) {
-        return repository.findById(key)
+        return repository.findByKey(key)
                 .map(entry -> new DictionaryDto(entry.getKey(), entry.getValue()))
                 .orElse(null);
     }

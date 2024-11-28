@@ -6,6 +6,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toMap;
 
 @RestController
 @RequestMapping("api/v2/dictionary")
@@ -18,8 +22,10 @@ public class DictionaryController {
     }
 
     @GetMapping("/{dictionaryName}")
-    public List<EntryDto> readEntries(@PathVariable String dictionaryName) {
-        return service.getEntries(dictionaryName);
+    public Map<String, String> readEntries(@PathVariable String dictionaryName) {
+        return service.getEntries(dictionaryName)
+                .stream()
+                .collect(toMap(EntryDto::key, EntryDto::value));
     }
 
     @GetMapping("/{dictionaryName}/{key}")

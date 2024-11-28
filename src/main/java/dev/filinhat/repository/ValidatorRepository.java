@@ -9,5 +9,8 @@ import java.util.Optional;
 
 @Repository
 public interface ValidatorRepository extends JpaRepository<ValidatorEntity, Long> {
+
     Optional<ValidatorEntity> findByDictionary(DictionaryEntity dictionary);
+
+    void deleteByDictionary(DictionaryEntity dictionary);
 }

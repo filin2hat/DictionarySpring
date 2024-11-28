@@ -17,4 +17,6 @@ public interface EntryRepository extends JpaRepository<EntryEntity, Long> {
     void deleteByDictionaryAndKey(DictionaryEntity dictionary, String key);
 
     boolean existsByDictionaryAndKey(DictionaryEntity dictionary, String key);
+
+    void deleteByDictionary(DictionaryEntity dictionary);
 }

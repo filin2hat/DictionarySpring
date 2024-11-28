@@ -11,30 +11,30 @@ import java.util.List;
 @RequestMapping("api/v2/dictionary")
 public class DictionaryController {
 
-    private final DictionaryService dictionaryService;
+    private final DictionaryService service;
 
-    public DictionaryController(DictionaryService dictionaryService) {
-        this.dictionaryService = dictionaryService;
+    public DictionaryController(DictionaryService service) {
+        this.service = service;
     }
 
-    @GetMapping("/{dictionaryCode}")
-    public List<EntryDto> readEntries(@PathVariable String dictionaryCode) {
-        return dictionaryService.getEntries(dictionaryCode);
+    @GetMapping("/{dictionaryName}")
+    public List<EntryDto> readEntries(@PathVariable String dictionaryName) {
+        return service.getEntries(dictionaryName);
     }
 
-    @GetMapping("/{dictionaryCode}/{key}")
-    public EntryDto getEntry(@PathVariable String dictionaryCode, @PathVariable String key) {
-        return dictionaryService.searchEntry(dictionaryCode, key);
+    @GetMapping("/{dictionaryName}/{key}")
+    public EntryDto getEntry(@PathVariable String dictionaryName, @PathVariable String key) {
+        return service.searchEntry(dictionaryName, key);
     }
 
-    @PostMapping("/{dictionaryCode}")
+    @PostMapping("/{dictionaryName}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addEntry(@PathVariable String dictionaryCode, @RequestBody EntryDto entryDto) {
-        dictionaryService.addEntry(dictionaryCode, entryDto);
+    public void addEntry(@PathVariable String dictionaryName, @RequestBody EntryDto entryDto) {
+        service.addEntry(dictionaryName, entryDto);
     }
 
-    @DeleteMapping("/{dictionaryCode}/{key}")
-    public void deleteEntry(@PathVariable String dictionaryCode, @PathVariable String key) {
-        dictionaryService.deleteEntry(dictionaryCode, key);
+    @DeleteMapping("/{dictionaryName}/{key}")
+    public void deleteEntry(@PathVariable String dictionaryName, @PathVariable String key) {
+        service.deleteEntry(dictionaryName, key);
     }
 }

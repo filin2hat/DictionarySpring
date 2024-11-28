@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface EntryRepository extends JpaRepository<EntryEntity, Long> {
+
     List<EntryEntity> findByDictionary(DictionaryEntity dictionary);
 
     Optional<EntryEntity> findByDictionaryAndKey(DictionaryEntity dictionary, String key);

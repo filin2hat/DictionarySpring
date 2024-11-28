@@ -8,5 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface DictionaryRepository extends JpaRepository<DictionaryEntity, Long> {
+
     Optional<DictionaryEntity> findByCode(String code);
 }

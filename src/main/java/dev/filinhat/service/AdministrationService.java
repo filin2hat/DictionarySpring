@@ -14,12 +14,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class AdminService {
+public class AdministrationService {
+
     private final DictionaryRepository dictionaryRepository;
     private final ValidatorRepository validatorRepository;
     private final EntryRepository entryRepository;
 
-    public AdminService(
+    public AdministrationService(
             DictionaryRepository dictionaryRepository,
             ValidatorRepository validatorRepository,
             EntryRepository entryRepository) {

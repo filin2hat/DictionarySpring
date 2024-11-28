@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id: v2-4
+      author: Biryulin Dmitriy
+
+      preConditions:
+        - onFail: MARK_RAN
+        - tableExists:
+            tableName: five_digit_dictionary
+
+      changes:
+        - dropTable:
+            tableName: five_digit_dictionary
+
+  - changeSet:
+      id: v2-5
+      author: Biryulin Dmitriy
+
+      preConditions:
+        - onFail: MARK_RAN
+        - tableExists:
+            tableName: four_letter_dictionary
+
+      changes:
+        - dropTable:
+            tableName: four_letter_dictionary

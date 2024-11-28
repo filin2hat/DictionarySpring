@@ -1,0 +1,95 @@
+databaseChangeLog:
+  - changeSet:
+      id: v2-1
+      author: Biryulin Dmitriy
+
+      changes:
+        - createTable:
+            tableName: dictionary
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                  autoIncrement: true
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: code
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                    unique: true
+
+  - changeSet:
+      id: v2-2
+      author: Biryulin Dmitriy
+
+      changes:
+        - createTable:
+            tableName: validator
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                  autoIncrement: true
+              - column:
+                  name: dictionary_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_validator_dictionary
+                    references: dictionary(id)
+              - column:
+                  name: key_length
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: key_pattern
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: v2-3
+      author: Biryulin Dmitriy
+
+      changes:
+        - createTable:
+            tableName: entry
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                  autoIncrement: true
+              - column:
+                  name: dictionary_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_entry_dictionary
+                    references: dictionary(id)
+              - column:
+                  name: key
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: value
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+
+        - addUniqueConstraint:
+            tableName: entry
+            columnNames: dictionary_id, key
+            constraintName: unique_entry_dictionary_key

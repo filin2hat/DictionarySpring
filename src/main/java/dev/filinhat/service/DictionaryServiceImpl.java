@@ -6,6 +6,7 @@ import dev.filinhat.repository.DictionaryRepository;
 import dev.filinhat.repository.EntryRepository;
 import dev.filinhat.repository.ValidatorRepository;
 import dev.filinhat.validation.KeyValidator;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,22 +14,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class DictionaryServiceImpl implements DictionaryService{
+@AllArgsConstructor
+public class DictionaryServiceImpl implements DictionaryService {
 
     private final DictionaryRepository dictionaryRepository;
     private final ValidatorRepository validatorRepository;
     private final EntryRepository entryRepository;
-    private final KeyValidator keyValidator; // Новый компонент
-
-    public DictionaryServiceImpl(DictionaryRepository dictionaryRepository,
-                                 ValidatorRepository validatorRepository,
-                                 EntryRepository entryRepository,
-                                 KeyValidator keyValidator) {
-        this.dictionaryRepository = dictionaryRepository;
-        this.validatorRepository = validatorRepository;
-        this.entryRepository = entryRepository;
-        this.keyValidator = keyValidator;
-    }
+    private final KeyValidator keyValidator;
 
     @Transactional(readOnly = true)
     public List<EntryDto> getEntries(String dictionaryCode) {

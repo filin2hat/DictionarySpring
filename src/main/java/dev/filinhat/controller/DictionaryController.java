@@ -2,6 +2,7 @@ package dev.filinhat.controller;
 
 import dev.filinhat.dto.EntryDto;
 import dev.filinhat.service.DictionaryService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,13 +12,10 @@ import static java.util.stream.Collectors.toMap;
 
 @RestController
 @RequestMapping("api/v2/dictionary")
+@AllArgsConstructor
 public class DictionaryController {
 
     private final DictionaryService service;
-
-    public DictionaryController(DictionaryService service) {
-        this.service = service;
-    }
 
     @GetMapping("/{dictionaryCode}")
     public Map<String, String> readEntries(@PathVariable String dictionaryCode) {

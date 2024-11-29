@@ -1,9 +1,13 @@
 package dev.filinhat.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "validator")
+@Getter
+@Setter
 public class Validator {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,36 +20,4 @@ public class Validator {
     private int keyLength;
 
     private String keyPattern;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Dictionary getDictionary() {
-        return dictionary;
-    }
-
-    public void setDictionary(Dictionary dictionary) {
-        this.dictionary = dictionary;
-    }
-
-    public int getKeyLength() {
-        return keyLength;
-    }
-
-    public void setKeyLength(int keyLength) {
-        this.keyLength = keyLength;
-    }
-
-    public String getKeyPattern() {
-        return keyPattern;
-    }
-
-    public void setKeyPattern(String keyPattern) {
-        this.keyPattern = keyPattern;
-    }
 }

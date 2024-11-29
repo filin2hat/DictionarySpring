@@ -7,6 +7,7 @@ import dev.filinhat.entity.Validator;
 import dev.filinhat.repository.DictionaryRepository;
 import dev.filinhat.repository.EntryRepository;
 import dev.filinhat.repository.ValidatorRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,20 +15,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class AdministrationServiceImpl implements AdministrationService {
 
     private final DictionaryRepository dictionaryRepository;
     private final ValidatorRepository validatorRepository;
     private final EntryRepository entryRepository;
-
-    public AdministrationServiceImpl(
-            DictionaryRepository dictionaryRepository,
-            ValidatorRepository validatorRepository,
-            EntryRepository entryRepository) {
-        this.dictionaryRepository = dictionaryRepository;
-        this.validatorRepository = validatorRepository;
-        this.entryRepository = entryRepository;
-    }
 
     @Transactional
     public void createDictionary(DictionaryDto dto) {

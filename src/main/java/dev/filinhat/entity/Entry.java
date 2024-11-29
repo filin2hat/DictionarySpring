@@ -1,9 +1,13 @@
 package dev.filinhat.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "entry")
+@Getter
+@Setter
 public class Entry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,36 +20,4 @@ public class Entry {
     private String key;
 
     private String value;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Dictionary getDictionary() {
-        return dictionary;
-    }
-
-    public void setDictionary(Dictionary dictionary) {
-        this.dictionary = dictionary;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
 }

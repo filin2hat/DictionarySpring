@@ -3,6 +3,7 @@ package dev.filinhat.controller;
 import dev.filinhat.dto.DictionaryDto;
 import dev.filinhat.dto.ValidatorDto;
 import dev.filinhat.service.AdministrationService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,13 +11,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v2/admin/dictionaries")
+@AllArgsConstructor
 public class AdministrationController {
 
     private final AdministrationService service;
-
-    public AdministrationController(AdministrationService service) {
-        this.service = service;
-    }
 
     @GetMapping
     public List<String> getAllDictionaries() {

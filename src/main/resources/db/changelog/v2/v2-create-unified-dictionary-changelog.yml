@@ -3,6 +3,12 @@ databaseChangeLog:
       id: v2-1
       author: Biryulin Dmitriy
 
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            tableExists:
+              tableName: dictionary
+
       changes:
         - createTable:
             tableName: dictionary
@@ -28,6 +34,12 @@ databaseChangeLog:
   - changeSet:
       id: v2-2
       author: Biryulin Dmitriy
+
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            tableExists:
+              tableName: validator
 
       changes:
         - createTable:
@@ -60,6 +72,12 @@ databaseChangeLog:
   - changeSet:
       id: v2-3
       author: Biryulin Dmitriy
+
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            tableExists:
+              tableName: entry
 
       changes:
         - createTable:

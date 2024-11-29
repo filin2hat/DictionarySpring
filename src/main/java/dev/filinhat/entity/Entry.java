@@ -4,14 +4,14 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "entry")
-public class EntryEntity {
+public class Entry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
     @JoinColumn(name = "dictionary_id", nullable = false)
-    private DictionaryEntity dictionary;
+    private Dictionary dictionary;
 
     private String key;
 
@@ -25,11 +25,11 @@ public class EntryEntity {
         this.id = id;
     }
 
-    public DictionaryEntity getDictionary() {
+    public Dictionary getDictionary() {
         return dictionary;
     }
 
-    public void setDictionary(DictionaryEntity dictionary) {
+    public void setDictionary(Dictionary dictionary) {
         this.dictionary = dictionary;
     }
 

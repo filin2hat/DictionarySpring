@@ -18,7 +18,7 @@ public class AdministrationController {
         this.service = service;
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public List<String> getAllDictionaries() {
         return service.getDictionariesDescription();
     }
@@ -29,14 +29,21 @@ public class AdministrationController {
         service.createDictionary(dictionaryDto);
     }
 
-    @DeleteMapping("/{dictionaryName}")
-    public void deleteDictionary(@PathVariable String dictionaryName) {
-        service.deleteDictionary(dictionaryName);
+    @PutMapping("/{dictionaryCode}")
+    public void updateDictionary(
+            @PathVariable String dictionaryCode,
+            @RequestBody DictionaryDto updatedDictionaryDto) {
+        service.updateDictionary(dictionaryCode, updatedDictionaryDto);
     }
 
-    @PostMapping("/{dictionaryName}/validator")
+    @DeleteMapping("/{dictionaryCode}")
+    public void deleteDictionary(@PathVariable String dictionaryCode) {
+        service.deleteDictionary(dictionaryCode);
+    }
+
+    @PostMapping("/{dictionaryCode}/validator")
     @ResponseStatus(HttpStatus.CREATED)
-    public void setValidationRule(@PathVariable String dictionaryName, @RequestBody ValidatorDto validatorDto) {
-        service.setValidationRule(dictionaryName, validatorDto);
+    public void setValidationRule(@PathVariable String dictionaryCode, @RequestBody ValidatorDto validatorDto) {
+        service.setValidationRule(dictionaryCode, validatorDto);
     }
 }

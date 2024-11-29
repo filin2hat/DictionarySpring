@@ -4,14 +4,14 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "validator")
-public class ValidatorEntity {
+public class Validator {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
     @JoinColumn(name = "dictionary_id", nullable = false)
-    private DictionaryEntity dictionary;
+    private Dictionary dictionary;
 
     private int keyLength;
 
@@ -25,11 +25,11 @@ public class ValidatorEntity {
         this.id = id;
     }
 
-    public DictionaryEntity getDictionary() {
+    public Dictionary getDictionary() {
         return dictionary;
     }
 
-    public void setDictionary(DictionaryEntity dictionary) {
+    public void setDictionary(Dictionary dictionary) {
         this.dictionary = dictionary;
     }
 

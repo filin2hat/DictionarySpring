@@ -1,16 +1,16 @@
 package dev.filinhat.repository;
 
-import dev.filinhat.entity.DictionaryEntity;
-import dev.filinhat.entity.ValidatorEntity;
+import dev.filinhat.entity.Dictionary;
+import dev.filinhat.entity.Validator;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface ValidatorRepository extends JpaRepository<ValidatorEntity, Long> {
+public interface ValidatorRepository extends JpaRepository<Validator, Long> {
 
-    Optional<ValidatorEntity> findByDictionary(DictionaryEntity dictionary);
+    Optional<Validator> findByDictionary(Dictionary dictionary);
 
-    void deleteByDictionary(DictionaryEntity dictionary);
+    void deleteByDictionary(Dictionary dictionary);
 }

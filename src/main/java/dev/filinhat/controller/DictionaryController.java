@@ -5,10 +5,8 @@ import dev.filinhat.service.DictionaryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 
-import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 
 @RestController
@@ -21,26 +19,34 @@ public class DictionaryController {
         this.service = service;
     }
 
-    @GetMapping("/{dictionaryName}")
-    public Map<String, String> readEntries(@PathVariable String dictionaryName) {
-        return service.getEntries(dictionaryName)
+    @GetMapping("/{dictionaryCode}")
+    public Map<String, String> readEntries(@PathVariable String dictionaryCode) {
+        return service.getEntries(dictionaryCode)
                 .stream()
                 .collect(toMap(EntryDto::key, EntryDto::value));
     }
 
-    @GetMapping("/{dictionaryName}/{key}")
-    public EntryDto getEntry(@PathVariable String dictionaryName, @PathVariable String key) {
-        return service.searchEntry(dictionaryName, key);
+    @GetMapping("/{dictionaryCode}/entry/{key}")
+    public EntryDto getEntry(@PathVariable String dictionaryCode, @PathVariable String key) {
+        return service.searchEntry(dictionaryCode, key);
     }
 
-    @PostMapping("/{dictionaryName}")
+    @PostMapping("/{dictionaryCode}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addEntry(@PathVariable String dictionaryName, @RequestBody EntryDto entryDto) {
-        service.addEntry(dictionaryName, entryDto);
+    public void addEntry(@PathVariable String dictionaryCode, @RequestBody EntryDto entryDto) {
+        service.addEntry(dictionaryCode, entryDto);
     }
 
-    @DeleteMapping("/{dictionaryName}/{key}")
-    public void deleteEntry(@PathVariable String dictionaryName, @PathVariable String key) {
-        service.deleteEntry(dictionaryName, key);
+    @PutMapping("/{dictionaryCode}/entry/{key}")
+    public void updateEntry(
+            @PathVariable String dictionaryCode,
+            @PathVariable String key,
+            @RequestBody EntryDto updatedEntryDto) {
+        service.updateEntry(dictionaryCode, key, updatedEntryDto);
+    }
+
+    @DeleteMapping("/{dictionaryCode}/{key}")
+    public void deleteEntry(@PathVariable String dictionaryCode, @PathVariable String key) {
+        service.deleteEntry(dictionaryCode, key);
     }
 }
